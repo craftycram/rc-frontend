@@ -35,19 +35,19 @@ export default {
     keyDown(e) {
       if (e.code === 'ArrowUp') {
         this.go();
-      } else if (e.code === 'w') {
+      } else if (e.code === 'KeyW') {
         this.go();
       } else if (e.code === 'ArrowLeft') {
         this.turnLeft();
-      } else if (e.code === 'a') {
+      } else if (e.code === 'KeyA') {
         this.turnLeft();
       } else if (e.code === 'ArrowRight') {
         this.turnRight();
-      } else if (e.code === 'd') {
+      } else if (e.code === 'KeyD') {
         this.turnRight();
       } else if (e.code === 'ArrowDown') {
         this.back();
-      } else if (e.code === 's') {
+      } else if (e.code === 'KeyS') {
         this.back();
       } else if (e.code === 'Space') {
         this.stop();
