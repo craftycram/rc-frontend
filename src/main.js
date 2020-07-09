@@ -3,7 +3,11 @@ import 'mutationobserver-shim';
 import Vue from 'vue';
 import './plugins/bootstrap-vue';
 import VueSocketIO from 'vue-socket.io';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import App from './App.vue';
+
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 
 Vue.use(new VueSocketIO({
   debug: true,
