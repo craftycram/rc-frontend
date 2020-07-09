@@ -1,10 +1,30 @@
 <template>
   <div>
-    <b-button v-on:click="go()">Forward</b-button>
-    <b-button v-on:click="back()">Back</b-button>
-    <b-button v-on:click="turnLeft()">Left</b-button>
-    <b-button v-on:click="turnRight()">Right</b-button>
-    <b-button v-on:click="stop()">Stop</b-button>
+    <b-button class="buttons" v-on:click="go()">
+      Forward
+      <br>
+      W / <b-icon icon="arrow-up-square"></b-icon>
+      </b-button>
+    <b-button class="buttons" v-on:click="back()">
+      Back
+      <br>
+      S / <b-icon icon="arrow-down-square"></b-icon>
+      </b-button>
+    <b-button class="buttons" v-on:click="turnLeft()">
+      Left
+      <br>
+      A / <b-icon icon="arrow-left-square"></b-icon>
+      </b-button>
+    <b-button class="buttons" v-on:click="turnRight()">
+      Right
+      <br>
+      D / <b-icon icon="arrow-right-square"></b-icon>
+      </b-button>
+    <b-button class="buttons" v-on:click="stop()">
+      Stop
+      <br>
+      Space
+      </b-button>
   </div>
 </template>
 
@@ -91,5 +111,7 @@ export default {
 </script>
 
 <style>
-
+.buttons{
+  margin: 10px;
+}
 </style>
