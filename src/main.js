@@ -9,10 +9,21 @@ import App from './App.vue';
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 
+/*
 Vue.use(new VueSocketIO({
   debug: true,
   connection: 'http://192.168.1.25:3001',
   options: {},
+}));
+*/
+
+Vue.use(new VueSocketIO({
+  debug: true,
+  // eslint-disable-next-line no-template-curly-in-string
+  connection: 'http://63.32.119.241:10000/marcbot_${MAC}_control',
+  options: {
+    useConnectionNamespace: true,
+  },
 }));
 
 Vue.config.productionTip = false;
