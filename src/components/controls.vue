@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>Status: {{connected}}</div>
     <b-button class="buttons" v-on:click="go()">
       Forward
       <br>
@@ -25,12 +26,20 @@
       <br>
       Space
       </b-button>
+      <b-button class="buttons" v-on:click="shutdown()">
+      shutdown
+      </b-button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'controls',
+  data() {
+    return {
+      connected: 'Disconnected',
+    };
+  },
   methods: {
     go() {
       this.$socket.emit('control-left', 100);
@@ -51,6 +60,9 @@ export default {
     turnRight() {
       this.$socket.emit('control-left', -100);
       this.$socket.emit('control-right', 100);
+    },
+    shutdown() {
+      this.$socket.emit('system', 'shutdown');
     },
     keyDown(e) {
       if (e.code === 'ArrowUp') {
@@ -77,16 +89,18 @@ export default {
   },
   sockets: {
     connect() {
-      // Fired when the socket connects.
-      // eslint-disable-next-line no-console
-      console.log('connected');
+      console.log('socket connected');
+      this.connected = 'Connected';
+      this.$socket.emit('register_front');
     },
 
     disconnect() {
-      // eslint-disable-next-line no-console
-      console.log('disconnected');
+      console.log('socket disconnected');
+      this.connected = 'Disonnected';
     },
-
+    nsp_list: (data) => {
+      console.log(`NSPs:${data}`);
+    },
     // Fired when the server sends something on the "messageChannel" channel.
     messageChannel(data) {
       // eslint-disable-next-line no-console
