@@ -20,7 +20,7 @@ Vue.use(new VueSocketIO({
 Vue.use(new VueSocketIO({
   debug: true,
   // eslint-disable-next-line no-template-curly-in-string
-  connection: 'http://63.32.119.241:10000/marcbot_${MAC}_control',
+  connection: 'https://hal.hfg.design:10000/marcbot_control',
   options: {
     useConnectionNamespace: true,
   },
