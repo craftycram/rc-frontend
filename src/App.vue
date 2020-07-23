@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <Layout></Layout>
-    <Controls></Controls>
+    <Layout>
+      <template v-slot:controlcomponent>
+        <Controls></Controls>
+      </template>
+    </Layout>
   </div>
 </template>
 
