@@ -1,34 +1,35 @@
 <template>
   <div>
-    <div>Status: {{connected}}</div>
+    <div>Status: {{connectedMsg}}</div>
     <b-button class="buttons" v-on:click="go()">
       Forward
       <br>
       W / <b-icon icon="arrow-up-square"></b-icon>
-      </b-button>
+    </b-button>
     <b-button class="buttons" v-on:click="back()">
       Back
       <br>
       S / <b-icon icon="arrow-down-square"></b-icon>
-      </b-button>
+    </b-button>
     <b-button class="buttons" v-on:click="turnLeft()">
       Left
       <br>
       A / <b-icon icon="arrow-left-square"></b-icon>
-      </b-button>
+    </b-button>
     <b-button class="buttons" v-on:click="turnRight()">
       Right
       <br>
       D / <b-icon icon="arrow-right-square"></b-icon>
-      </b-button>
+    </b-button>
     <b-button class="buttons" v-on:click="stop()">
       Stop
       <br>
       Space
-      </b-button>
-      <b-button class="buttons" v-on:click="shutdown()">
+    </b-button>
+    <br>
+    <b-button class="buttons" v-on:click="shutdown()">
       shutdown
-      </b-button>
+    </b-button>
   </div>
 </template>
 
@@ -37,7 +38,8 @@ export default {
   name: 'controls',
   data() {
     return {
-      connected: 'Disconnected',
+      connectedMsg: 'Disconnected',
+      connected: false,
     };
   },
   methods: {
@@ -90,23 +92,19 @@ export default {
   sockets: {
     connect() {
       console.log('socket connected');
-      this.connected = 'Connected';
+      this.connectedMsg = 'Connected';
+      this.connected = true;
+      this.ownId = this.$socket.id;
       this.$socket.emit('register_front');
     },
 
     disconnect() {
       console.log('socket disconnected');
-      this.connected = 'Disonnected';
+      this.connected = false;
+      this.connectedMsg = 'Disonnected';
     },
     nsp_list: (data) => {
       console.log(`NSPs:${data}`);
-    },
-    // Fired when the server sends something on the "messageChannel" channel.
-    messageChannel(data) {
-      // eslint-disable-next-line no-console
-      console.log('message-channel');
-      // eslint-disable-next-line no-console
-      console.log(data);
     },
   },
   mounted() {
@@ -125,7 +123,7 @@ export default {
 </script>
 
 <style>
-.buttons{
-  margin: 10px;
-}
+  .buttons {
+    margin: 10px;
+  }
 </style>
