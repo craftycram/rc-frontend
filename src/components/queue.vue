@@ -34,7 +34,7 @@ export default {
 <style>
   #queue .container div {
     display: block;
-    width: 500px;
+    width: 100%;
     border: 1px solid black;
     list-style-type: none;
     height: 50px;
