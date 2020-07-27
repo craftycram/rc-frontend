@@ -1,45 +1,31 @@
 <template>
   <div id="queue">
     <div class="container">
-      <div v-for="(w, idx) in currentQueue[1]" :key="w.id.toString()"
-        v-bind:class="{ isYou: (w.id == ownId), isActive: (idx == 0)}">
+      <div v-for="(w, idx) in $store.state.currentQueue[1]" :key="w.id.toString()"
+        v-bind:class="{ isYou: (w.id == $store.state.ownId), isActive: (idx == 0)}">
         <span class="ownname">{{w.name}}</span>
-        <span v-if="w.id == ownId"> (You)</span>
+        <span v-if="w.id == $store.state.ownId"> (You)</span>
         <span v-if="idx == 0"> (ACTIVE)</span>
-        <br /><small style="color: lightgray;">{{w.id}}</small>
+        <br/><small style="color: lightgray;">{{w.id}}</small>
       </div>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      currentQueue: [],
-      ownId: 'undefined',
-      clientName: 'undefined',
-      currentTimer: 0,
-    };
-  },
   sockets: {
-    update_queue: (data) => {
-      this.currentQueue = data;
+    update_queue(data) {
+      this.$store.state.currentQueue = data;
     },
-    queue_ping: () => {
+    queue_ping() {
       this.$socket.emit('queue_pong');
     },
-    update_timer: (data) => {
-      this.currentTimer = data;
+    update_timer(data) {
+      this.$store.state.currentTimer = data;
     },
-    client_name: (data) => {
-      this.clientName = data;
-    },
-  },
-  computed: {
-    amIActive: () => {
-      if (this.currentQueue.length === 0) return false;
-      return this.currentQueue[1][0].id === this.ownId;
+    client_name(data) {
+      this.$store.state.clientName = data;
     },
   },
 };
@@ -48,20 +34,21 @@ export default {
 <style>
   #queue .container div {
     display: block;
-    width: 600px;
+    width: 100%;
     border: 1px solid black;
     list-style-type: none;
     height: 50px;
     font-weight: bold;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
   }
 
   #queue .container div.isYou {
-    border-left: 5px solid hotpink;
+    border-left: 20px solid hotpink;
   }
 
   #queue .container div.isActive {
-    background-color: lightgreen;
+    background-color: rgb(145, 64, 64);
   }
 </style>
