@@ -1,10 +1,10 @@
 <template>
   <div id="queue">
     <div class="container">
-      <div v-for="(w, idx) in currentQueue[1]" :key="w.id.toString()"
-        v-bind:class="{ isYou: (w.id == ownId), isActive: (idx == 0)}">
+      <div v-for="(w, idx) in $store.state.currentQueue[1]" :key="w.id.toString()"
+        v-bind:class="{ isYou: (w.id == $store.state.ownId), isActive: (idx == 0)}">
         <span class="ownname">{{w.name}}</span>
-        <span v-if="w.id == ownId"> (You)</span>
+        <span v-if="w.id == $store.state.ownId"> (You)</span>
         <span v-if="idx == 0"> (ACTIVE)</span>
         <br/><small style="color: lightgray;">{{w.id}}</small>
       </div>
@@ -14,33 +14,18 @@
 
 <script>
 export default {
-  data() {
-    return {
-      currentQueue: [],
-      ownId: 'none',
-      ownName: 'noname',
-      clientName: 'undefined',
-      currentTimer: 0,
-    };
-  },
   sockets: {
     update_queue(data) {
-      this.currentQueue = data;
+      this.$store.state.currentQueue = data;
     },
     queue_ping() {
       this.$socket.emit('queue_pong');
     },
     update_timer(data) {
-      this.currentTimer = data;
+      this.$store.state.currentTimer = data;
     },
     client_name(data) {
-      this.clientName = data;
-    },
-  },
-  computed: {
-    amIActive: () => {
-      if (this.currentQueue.length === 0) return false;
-      return this.currentQueue[1][0].id === this.ownId;
+      this.$store.state.clientName = data;
     },
   },
 };
