@@ -1,33 +1,33 @@
 <template>
   <div>
     <div>Status: {{connectedMsg}}</div>
-    <b-button class="buttons" v-on:click="go()">
+    <b-button class="buttons" :disabled="!connected" v-on:click="go()">
       Forward
       <br>
       W / <b-icon icon="arrow-up-square"></b-icon>
     </b-button>
-    <b-button class="buttons" v-on:click="back()">
+    <b-button class="buttons" :disabled="!connected" v-on:click="back()">
       Back
       <br>
       S / <b-icon icon="arrow-down-square"></b-icon>
     </b-button>
-    <b-button class="buttons" v-on:click="turnLeft()">
+    <b-button class="buttons" :disabled="!connected" v-on:click="turnLeft()">
       Left
       <br>
       A / <b-icon icon="arrow-left-square"></b-icon>
     </b-button>
-    <b-button class="buttons" v-on:click="turnRight()">
+    <b-button class="buttons" :disabled="!connected" v-on:click="turnRight()">
       Right
       <br>
       D / <b-icon icon="arrow-right-square"></b-icon>
     </b-button>
-    <b-button class="buttons" v-on:click="stop()">
+    <b-button class="buttons" :disabled="!connected" v-on:click="stop()">
       Stop
       <br>
       Space
     </b-button>
     <br>
-    <b-button class="buttons" v-on:click="shutdown()">
+    <b-button class="buttons" :disabled="!connected" v-on:click="shutdown()">
       shutdown
     </b-button>
   </div>
