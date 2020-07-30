@@ -8,7 +8,7 @@
       W / <b-icon icon="arrow-up-square"></b-icon>
     </b-button>
     <b-button class="buttons"
-      v-show="authorized"
+      v-show="$store.getters.authorized"
       :disabled="!connected || !$store.getters.amIActive" v-on:click="back()">
       Back
       <br>
@@ -34,7 +34,7 @@
     </b-button>
     <br>
     <b-button class="buttons"
-      v-show="authorized"
+      v-show="$store.getters.authorized"
       :disabled="!connected || !$store.getters.amIActive" v-on:click="shutdown()">
       shutdown
     </b-button>
@@ -51,7 +51,6 @@ export default {
       connectedMsg: 'Disconnected',
       connected: false,
       overridePW: '',
-      authorized: false,
     };
   },
   methods: {
@@ -127,7 +126,7 @@ export default {
       console.log(`NSPs:${data}`);
     },
     authorized: (data) => {
-      this.authorized = data;
+      this.$store.getters.authorized = data;
     },
   },
   mounted() {
