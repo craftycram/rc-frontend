@@ -8,7 +8,7 @@
       W / <b-icon icon="arrow-up-square"></b-icon>
     </b-button>
     <b-button class="buttons"
-      v-show="false"
+      v-show="authorized"
       :disabled="!connected || !$store.getters.amIActive" v-on:click="back()">
       Back
       <br>
@@ -34,10 +34,12 @@
     </b-button>
     <br>
     <b-button class="buttons"
-      v-show="false"
+      v-show="authorized"
       :disabled="!connected || !$store.getters.amIActive" v-on:click="shutdown()">
       shutdown
     </b-button>
+
+    <input type="text" v-model="overridePW" v-on:change="authorize" placeholder="Autorisierung">
   </div>
 </template>
 
@@ -48,6 +50,8 @@ export default {
     return {
       connectedMsg: 'Disconnected',
       connected: false,
+      overridePW: '',
+      authorized: false,
     };
   },
   methods: {
@@ -75,6 +79,9 @@ export default {
     },
     shutdown() {
       // this.$socket.emit('system', 'shutdown');
+    },
+    authorize: () => {
+      this.$socket.emit('authorize', this.overridePW);
     },
     keyDown(e) {
       if (e.code === 'ArrowUp') {
@@ -118,6 +125,9 @@ export default {
     nsp_list: (data) => {
       // eslint-disable-next-line no-console
       console.log(`NSPs:${data}`);
+    },
+    authorized: (data) => {
+      this.authorized = data;
     },
   },
   mounted() {
