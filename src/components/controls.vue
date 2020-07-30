@@ -8,6 +8,7 @@
       W / <b-icon icon="arrow-up-square"></b-icon>
     </b-button>
     <b-button class="buttons"
+      v-show="false"
       :disabled="!connected || !$store.getters.amIActive" v-on:click="back()">
       Back
       <br>
@@ -33,6 +34,7 @@
     </b-button>
     <br>
     <b-button class="buttons"
+      v-show="false"
       :disabled="!connected || !$store.getters.amIActive" v-on:click="shutdown()">
       shutdown
     </b-button>
@@ -54,8 +56,10 @@ export default {
       this.$socket.emit('control-right', 100);
     },
     back() {
+      /*
       this.$socket.emit('control-left', -100);
       this.$socket.emit('control-right', -100);
+      */
     },
     stop() {
       this.$socket.emit('control-left', 0);
@@ -70,7 +74,7 @@ export default {
       this.$socket.emit('control-right', 100);
     },
     shutdown() {
-      this.$socket.emit('system', 'shutdown');
+      // this.$socket.emit('system', 'shutdown');
     },
     keyDown(e) {
       if (e.code === 'ArrowUp') {
