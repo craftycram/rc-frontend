@@ -35,11 +35,12 @@ const store = new Vuex.Store({
     ownName: 'noname',
     clientName: 'undefined',
     currentTimer: 0,
+    authorized: false,
   },
   getters: {
     amIActive: () => {
       if (store.state.currentQueue.length === 0) return false;
-      return store.state.currentQueue[1][0].id === store.state.ownId;
+      return store.state.currentQueue[1][0].id === store.state.ownId || store.state.authorized;
     },
   },
 });
