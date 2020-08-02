@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="!thunder">
+    <div v-show="!thunderState">
       <div>Status: {{connectedMsg}}</div>
       <b-button class="buttons"
         :disabled="!connected || !$store.getters.amIActive" v-on:click="go()">
@@ -42,7 +42,7 @@
 
       <input type="text" v-model="overridePW" v-on:change="authorize" placeholder="Autorisierung">
     </div>
-    <div v-show="thunder">
+    <div v-show="thunderState">
       Auf Grund eines Gewitters ist die Steuerung momentan deaktiviert.
     </div>
   </div>
@@ -56,7 +56,7 @@ export default {
       connectedMsg: 'Disconnected',
       connected: false,
       overridePW: '',
-      thunder: false,
+      thunderState: true,
     };
   },
   methods: {
@@ -131,7 +131,10 @@ export default {
       this.$store.getters.authorized = data;
     },
     thunder: (data) => {
-      this.thunder = data;
+      this.thunderState = data;
+    },
+    serialresponse: (data) => {
+      console.log(data);
     },
   },
   mounted() {
