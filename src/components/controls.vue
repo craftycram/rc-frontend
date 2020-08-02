@@ -81,7 +81,7 @@ export default {
     shutdown() {
       // this.$socket.emit('system', 'shutdown');
     },
-    authorize: () => {
+    authorize: function () {
       this.$socket.emit('authorize', this.overridePW);
     },
     keyDown(e) {
@@ -131,7 +131,12 @@ export default {
       this.$store.getters.authorized = data;
     },
     thunder: (data) => {
-      this.thunderState = data;
+      console.log(`recieved thuder state: ${data}`);
+      if (data) {
+        this.thunderState = true;
+      } else {
+        this.thunderState = false;
+      }
     },
     serialresponse: (data) => {
       console.log(data);
