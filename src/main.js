@@ -36,6 +36,8 @@ const store = new Vuex.Store({
     clientName: 'undefined',
     currentTimer: 0,
     authorized: false,
+    limitLeft: false,
+    limitRight: false,
   },
   getters: {
     amIActive: () => {
