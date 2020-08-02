@@ -9,6 +9,10 @@
         <Queue></Queue>
       </template>
     </Layout>
+    <p>
+      Info: Krankheitsbedingt kann mein Roboter leider nicht durch die HfG fahren,
+      daher mein Garten als Erkundungsgebiet.
+    </p>
   </div>
 </template>
 

@@ -1,45 +1,50 @@
 <template>
   <div>
-    <div>Status: {{connectedMsg}}</div>
-    <b-button class="buttons"
-      :disabled="!connected || !$store.getters.amIActive" v-on:click="go()">
-      Forward
+    <div v-show="!thunder">
+      <div>Status: {{connectedMsg}}</div>
+      <b-button class="buttons"
+        :disabled="!connected || !$store.getters.amIActive" v-on:click="go()">
+        Forward
+        <br>
+        W / <b-icon icon="arrow-up-square"></b-icon>
+      </b-button>
+      <b-button class="buttons"
+        v-show="$store.getters.authorized"
+        :disabled="!connected || !$store.getters.amIActive" v-on:click="back()">
+        Back
+        <br>
+        S / <b-icon icon="arrow-down-square"></b-icon>
+      </b-button>
+      <b-button class="buttons"
+        :disabled="!connected || !$store.getters.amIActive" v-on:click="turnLeft()">
+        Left
+        <br>
+        A / <b-icon icon="arrow-left-square"></b-icon>
+      </b-button>
+      <b-button class="buttons"
+        :disabled="!connected || !$store.getters.amIActive" v-on:click="turnRight()">
+        Right
+        <br>
+        D / <b-icon icon="arrow-right-square"></b-icon>
+      </b-button>
+      <b-button class="buttons"
+        :disabled="!connected || !$store.getters.amIActive" v-on:click="stop()">
+        Stop
+        <br>
+        Space
+      </b-button>
       <br>
-      W / <b-icon icon="arrow-up-square"></b-icon>
-    </b-button>
-    <b-button class="buttons"
-      v-show="$store.getters.authorized"
-      :disabled="!connected || !$store.getters.amIActive" v-on:click="back()">
-      Back
-      <br>
-      S / <b-icon icon="arrow-down-square"></b-icon>
-    </b-button>
-    <b-button class="buttons"
-      :disabled="!connected || !$store.getters.amIActive" v-on:click="turnLeft()">
-      Left
-      <br>
-      A / <b-icon icon="arrow-left-square"></b-icon>
-    </b-button>
-    <b-button class="buttons"
-      :disabled="!connected || !$store.getters.amIActive" v-on:click="turnRight()">
-      Right
-      <br>
-      D / <b-icon icon="arrow-right-square"></b-icon>
-    </b-button>
-    <b-button class="buttons"
-      :disabled="!connected || !$store.getters.amIActive" v-on:click="stop()">
-      Stop
-      <br>
-      Space
-    </b-button>
-    <br>
-    <b-button class="buttons"
-      v-show="$store.getters.authorized"
-      :disabled="!connected || !$store.getters.amIActive" v-on:click="shutdown()">
-      shutdown
-    </b-button>
+      <b-button class="buttons"
+        v-show="$store.getters.authorized"
+        :disabled="!connected || !$store.getters.amIActive" v-on:click="shutdown()">
+        shutdown
+      </b-button>
 
-    <input type="text" v-model="overridePW" v-on:change="authorize" placeholder="Autorisierung">
+      <input type="text" v-model="overridePW" v-on:change="authorize" placeholder="Autorisierung">
+    </div>
+    <div v-show="thunder">
+      Auf Grund eines Gewitters ist die Steuerung momentan deaktiviert.
+    </div>
   </div>
 </template>
 
@@ -51,6 +56,7 @@ export default {
       connectedMsg: 'Disconnected',
       connected: false,
       overridePW: '',
+      thunder: false,
     };
   },
   methods: {
@@ -123,6 +129,9 @@ export default {
     },
     authorized: (data) => {
       this.$store.getters.authorized = data;
+    },
+    thunder: (data) => {
+      this.thunder = data;
     },
   },
   mounted() {
